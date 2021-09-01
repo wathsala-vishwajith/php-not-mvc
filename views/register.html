@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <script>
+            function doRegister () {
+        
+              var data = new FormData();
+              data.append("register",1);
+              data.append("name", document.getElementById("name").value);
+              data.append("uname", document.getElementById("uname").value);
+              data.append("password", document.getElementById("password").value);
+        
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", "http://localhost/php-mvc/controllers/controller.php");
+              xhr.onload = function(){
+                search = JSON.parse(this.response);
+                if (search !== null) {  
+                 alert('Error: password validation failed');
+                }else{
+                    alert("success!");
+                }
+              };
+              xhr.send(data);
+              return false;
+            }
+        </script>
+    </head>
+    <body>
+        <form onsubmit="return doRegister()">
+            <label for="Name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="Username">Username:</label><br>
+            <input type="text" id="uname" name="uname" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+            <p>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</p>
+            <input type="submit" value="Submit"/>
+          </form>
+    </body>
+</html>
